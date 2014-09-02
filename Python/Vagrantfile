@@ -1,0 +1,33 @@
+VAGRANTFILE_API_VERSION = "2"
+
+$script = <<SCRIPT
+sudo apt-get update
+sudo apt-get install curl git python-pip -y
+sudo pip install requests
+chmod 0600 /home/vagrant/.ssh/id_rsa
+SCRIPT
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "chef/debian-7.4"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  config.vm.provision :file do |file|
+    file.source	= '../.ssh/id_rsa'
+	file.destination = '/home/vagrant/.ssh/id_rsa'
+  end
+  config.vm.provision :file do |file|
+    file.source	= '../.ssh/known_hosts'
+	file.destination = '/home/vagrant/.ssh/known_hosts'
+  end
+  config.vm.provision :file do |file|
+    file.source = '../.gitconfig'
+	file.destination = '/home/vagrant/.gitconfig'
+  end
+
+  config.vm.provision "shell", inline: $script
+  
+end
