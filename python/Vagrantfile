@@ -1,0 +1,23 @@
+$script = <<SCRIPT
+apt-get update
+apt-get install curl git python-pip python2.7-dev -y
+pip install requests
+pip install pyrax
+pip install pywinrm
+SCRIPT
+Vagrant.configure(2) do |config|
+  config.ssh.private_key_path = '/home/rrichard/.ssh/id_rsa'
+  config.vm.define :python do |box|
+    box.ssh.forward_agent = true
+    box.vm.provider :rackspace do |rs|
+      rs.username = ENV['RACKSPACE_USERNAME']
+      rs.admin_password = ENV['RACKSPACE_ADMIN_PASSWORD']
+      rs.api_key  = ENV['RACKSPACE_API_KEY']
+      rs.flavor   = 'general1-4'
+      rs.image    = 'Debian 8 (Jessie) (PVHVM)'
+      rs.rackspace_region = :iad
+      rs.key_name = 'rrichard'
+    end
+    box.vm.provision "shell", inline: $script
+  end
+end
