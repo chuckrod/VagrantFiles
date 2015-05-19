@@ -1,0 +1,15 @@
+Vagrant.configure(2) do |config|
+  config.vm.communicator = "winrm"
+  config.vm.define :WindowsUpdate do |box|
+    box.ssh.private_key_path = '~/.ssh/id_rsa'
+    box.vm.provider :rackspace do |rs|
+      rs.username = ENV['RACKSPACE_USERNAME']
+      rs.admin_password = ENV['RACKSPACE_ADMIN_PASSWORD']
+      rs.api_key  = ENV['RACKSPACE_API_KEY']
+      rs.flavor   = 'general1-4'
+      rs.image    = 'Windows Server 2012 R2 (base install without updates)'
+      rs.rackspace_region = :iad
+      rs.key_name = 'rrichard'
+    end
+  end
+end
