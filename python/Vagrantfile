@@ -1,5 +1,5 @@
 Vagrant.configure(2) do |config|
- config.vm.define :dev do |box|
+ config.vm.define :rodpython do |box|
    box.ssh.forward_agent = true
    box.ssh.private_key_path = '~/.ssh/id_rsa'
    box.vm.provider :rackspace do |rs|
@@ -7,13 +7,12 @@ Vagrant.configure(2) do |config|
      rs.admin_password = ENV['RACKSPACE_ADMIN_PASSWORD']
      rs.api_key  = ENV['RACKSPACE_API_KEY']
      rs.flavor   = 'general1-4'
-     rs.image    = 'Ubuntu 15.04 (Vivid Vervet) (PVHVM)'
-     rs.rackspace_region = :iad
+     rs.image    = 'Ubuntu 15.10 (Wily Werewolf) (PVHVM)'
+     rs.rackspace_region = :ord
      rs.key_name = 'rrichard'
    end
  end
 
- config.vm.provision 'file', source: '~/.profile', destination: '~/.profile'
  config.vm.provision 'shell' do |s|
    s.path = 'bootstrap'
  end

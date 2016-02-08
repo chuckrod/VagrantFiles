@@ -2,13 +2,5 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 apt-get install -y git curl python-dev python-setuptools build-essential
-easy_install -U pip
-pip install pbr==0.11.0
-pip install python-novaclient
+apt-get install -y python-pip
 pip install pyrax
-pip install pywinrm
-
-git config --system user.email "rrichard@qualtrax.com"
-git config --system user.name "Rodney Richard"
-
-git clone git@github.com:qualtrax/qualtraxcloud
