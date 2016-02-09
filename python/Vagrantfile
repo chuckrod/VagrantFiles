@@ -7,10 +7,20 @@ Vagrant.configure(2) do |config|
      rs.admin_password = ENV['RACKSPACE_ADMIN_PASSWORD']
      rs.api_key  = ENV['RACKSPACE_API_KEY']
      rs.flavor   = 'general1-4'
-     rs.image    = 'Ubuntu 15.10 (Wily Werewolf) (PVHVM)'
+     rs.image    = 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
      rs.rackspace_region = :ord
      rs.key_name = 'rrichard'
    end
+ end
+
+ config.vm.provision :file do |file|
+   file.source = '~/.profile'
+    file.destination = '~/.profile'
+ end
+
+ config.vm.provision :file do |file|
+   file.source = '~/.ssh/known_hosts'
+    file.destination = '~/.ssh/known_hosts'
  end
 
  config.vm.provision 'shell' do |s|

@@ -4,3 +4,10 @@ apt-get update
 apt-get install -y git curl python-dev python-setuptools build-essential
 apt-get install -y python-pip
 pip install pyrax
+
+
+git config --global user.name "Rodney Richard"
+git config --global user.email "rrichard@qualtrax.com"
+
+git clone git@github.com:chuckrod/rackspace-clouddns
+
